@@ -1,0 +1,93 @@
+---
+
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAC Address Formatter</title>
+    <style>
+        :root{
+            --primaryColor: #424549;
+            --primaryText: #F4F4EA;
+            --primaryNav: #282b30;
+            --primaryColorGlass: rgb(66,69,73,.85);
+            --primaryNavGlass: rgba(40, 43, 48, 0.85);
+            --debugBox: dashed rgba(24, 194, 18, 0) 2px;
+            --primaryHighlight: #505357;
+        }
+        body,html {
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            font-family: 'Trebuchet MS', sans-serif;
+            background-color: var(--primaryColor);
+            color: var(--primaryText);
+            height: 100vh;
+            width: 100vw;
+            border: 3px solid rgba(0, 0, 0, 0);
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+        }
+        #align{
+            background-color: var(--primaryNav);
+            border-radius: 7px;
+            width: 700px;
+            height: 300px;
+            margin: 10px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+        #MAC{
+            text-align: center; 
+            width: 500px;
+            height: 100px;
+            font-size: 35px;
+            background-color: var(--primaryColor);
+            border: 2px solid rgba(0, 0, 0, 0);
+            border-radius: 7px;
+            color: var(--primaryText);
+        }
+        .valid{
+            outline: 2px solid green !important;
+        }
+        .invalid{
+            outline: 2px solid red !important;
+        }
+        #title{
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="align">
+        <p id="title">MAC Address Converter</p>
+        <input maxlength="17" id="MAC"/>
+    </div>
+</body>
+<script>
+    var regExp = new RegExp(/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/);
+    var macField = document.getElementById("MAC")
+    macField.addEventListener('keyup', function() { 
+    macField.classList.remove("valid")
+    macField.classList.remove("invalid")
+    this.value = 
+        (this.value.toUpperCase()
+        .replace(/[^\d|A-Z]/g, '')
+        .match(/.{1,2}/g) || [])
+        .join(":")
+    if (regExp.test(this.value)) {
+        macField.classList.add("valid")
+    } else {
+        macField.classList.add("invalid")
+    }
+    });
+</script>
+</html>
